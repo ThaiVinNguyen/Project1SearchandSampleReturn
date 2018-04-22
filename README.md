@@ -170,10 +170,6 @@ def color_thresh(img, rgb_thresh=(160, 160, 160,100,100,50)):
 ```python
 def decision_step(Rover):
 
-    # Implement conditionals to decide what to do given perception data
-    # Here you're all set up with some basic functionality but you'll need to
-    # improve on this decision tree to do a good job of navigating autonomously!
-
     # Example:
     # Check if we have vision data to make decisions with
     if Rover.nav_angles is not None:
@@ -324,8 +320,6 @@ class RoverState():
 
 ##### In autonomous mode, I managed to map at least 40% with at least 60% fidelity. Also, some capability to detect, navigate towards rock samples, and pick them up was added. There are instances where it would crash against the rocks in the middle of the map, sometimes getting stuck. Also, sometimes it stays in a loop going to the same places over and over, or just stays around in circles looking for a greater navigable path.
 
-##### Would further optimization be pursued, it would be in the better obstacle detection area (specially rocks in the middle of the map, not big enough to be perceived as obstacle), along with better decision making after it notices it stayed in a loop, and running in circles.
-
 ##### Below is the simulator setup used for the Autonomous Mode.
 
 ![alt text][image5]
@@ -341,7 +335,7 @@ Figure 6: Result which run Simulator for autonomous mode
 ### - Here I will talk about the approach I took, what techniques I used, what worked and why, where the pipeline might fail and how I might improve it if I were going to pursue this project further.
 
 
-##### I applied the perception step functions to provide computer vision leveraging the Rover data set up in the drive_rover.py; from color_thresh() to pix_to_world(). Modified slightly the color_thresh() function to output the 3 threshold required to detect obstacles, path, and rock samples. I also added directional data to Rover for rock samples by applying to_polar_coords() to rock pixels.
+##### The Rover data set up in the drive_rover.py; from color_thresh() to pix_to_world(). Modified slightly the color_thresh() function to output the 3 threshold required to detect obstacles, path, and rock samples. I also added directional data to Rover for rock samples by applying to_polar_coords() to rock pixels.
 
 ##### In the decision_step() function, I added simple `if` and `elif` chain events to trigger stopping and slower speeds upon detecting rock samples, with some steering towards the rock pixel angles provided by the perception step (a little rough around the edges but did the trick most of the time). Occasionally, it stops on top of the rock samples and gets stuck. The rover sometimes, stays running around in circles.
 
